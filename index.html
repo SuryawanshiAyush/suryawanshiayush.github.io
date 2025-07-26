@@ -5,6 +5,37 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Ayush Suryawanshi | Portfolio</title>
   <style>
+    .theme-btn {
+  margin-top: 1rem;
+  padding: 0.6rem 1rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  background: white;
+  color: var(--primary);
+  font-weight: bold;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+  transition: 0.3s;
+}
+.theme-btn:hover {
+  background: var(--primary);
+  color: white;
+}
+body.dark {
+  background-color: #111827;
+  color: #f9fafb;
+}
+body.dark nav {
+  background: rgba(31,41,55,0.9);
+}
+body.dark .card {
+  background: #1f2937;
+  color: #f9fafb;
+}
+body.dark footer {
+  background: #1f2937;
+}
+
     :root {
       --primary: #6366f1;
       --bg: #f3f4f6;
@@ -82,6 +113,15 @@
       padding-left: 0.5rem;
       margin-bottom: 1rem;
     }
+    .card h3 a {
+  color: var(--primary);
+  text-decoration: none;
+}
+.card h3 a:hover {
+  text-decoration: underline;
+  color: #4b51ff;
+}
+
     .card {
       background: var(--card-bg);
       padding: 1.5rem;
@@ -126,9 +166,11 @@
   </nav>
 
   <header>
-    <img src="https://via.placeholder.com/120" alt="Ayush">
+    <img src="https://raw.githubusercontent.com/SuryawanshiAyush/SuryawanshiAyush.github.io/main/ayush.jpg" alt="Ayush">
     <h1>Ayush Suryawanshi</h1>
-    <p>Student | Aspiring Developer | Data Analyst Intern</p>
+    <p id="typing-text"></p>
+    <button id="theme-toggle" class="theme-btn">🌙 Dark Mode</button>
+
   </header>
 
   <section id="about">
@@ -154,19 +196,37 @@
   </section>
 
   <section id="projects">
-    <h2>Projects</h2>
+  <h2>Projects</h2>
 
-    <div class="card">
-      <h3>ATM Simulation System</h3>
-      <p>Console-based banking simulation with features like balance inquiry, withdrawal, deposit, and PIN authentication using OOP concepts.</p>
-    </div>
+  <div class="card">
+  <h3>
+    <a href="https://github.com/SuryawanshiAyush/Spotify-Clone" target="_blank">
+      Spotify Clone (Frontend)
+    </a>
+  </h3>
+  <p>HTML + CSS project recreating the Spotify UI …</p>
+  <p>
+    <a href="https://github.com/SuryawanshiAyush/Spotify-Clone" target="_blank">GitHub Repo</a> |
+    <a href="https://suryawanshiayush.github.io/Spotify-Clone/" target="_blank">Live Demo</a>
+  </p>
+</div>
 
-    <div class="card">
-      <h3>Spotify Clone (Frontend)</h3>
-      <p>HTML + CSS project recreating the Spotify UI with responsive design, playlists, and playback controls.</p>
-    </div>
 
-  </section>
+  <div class="card">
+    <h3>
+      <a href="https://github.com/SuryawanshiAyush/Spotify-Clone" target="_blank">Spotify Clone (Frontend)</a>
+    </h3>
+    <p>
+      HTML + CSS project recreating the Spotify UI with responsive design, playlists, and playback controls.
+    </p>
+    <p>
+      <a href="https://github.com/SuryawanshiAyush/Spotify-Clone" target="_blank">GitHub Repo</a> |
+      <a href="https://suryawanshiayush.github.io/Spotify-Clone/" target="_blank">Live Demo</a>
+    </p>
+  </div>
+</section>
+
+
 
   <section id="experience">
     <h2>Experience</h2>
@@ -195,17 +255,51 @@
   </footer>
 
   <script>
-    // Animate cards when scrolled into view
-    const cards = document.querySelectorAll('.card');
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if(entry.isIntersecting) {
-          entry.target.classList.add('show');
-        }
-      });
-    }, { threshold: 0.1 });
+  // Typing Animation
+  const typingText = document.getElementById("typing-text");
+  const phrases = [
+    "Building ideas, one line of code at a time.",
+    "Turning coffee and curiosity into code.",
+    "Always learning. Always improving."
+  ];
+  let phraseIndex = 0;
+  let charIndex = 0;
+  let deleting = false;
 
-    cards.forEach(card => observer.observe(card));
-  </script>
+  function type() {
+    const currentPhrase = phrases[phraseIndex];
+    if (!deleting) {
+      typingText.textContent = currentPhrase.slice(0, ++charIndex);
+      if (charIndex === currentPhrase.length) {
+        deleting = true;
+        setTimeout(type, 1500);
+        return;
+      }
+    } else {
+      typingText.textContent = currentPhrase.slice(0, --charIndex);
+      if (charIndex === 0) {
+        deleting = false;
+        phraseIndex = (phraseIndex + 1) % phrases.length;
+      }
+    }
+    setTimeout(type, deleting ? 50 : 100);
+  }
+  type();
+
+  // Scroll animations
+  const cards = document.querySelectorAll('.card');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => { if(entry.isIntersecting){ entry.target.classList.add('show'); } });
+  }, { threshold: 0.15 });
+  cards.forEach(card => observer.observe(card));
+
+  // Dark Mode Toggle
+  const themeToggle = document.getElementById('theme-toggle');
+  themeToggle.addEventListener('click', () => {
+    document.body.classList.toggle('dark');
+    themeToggle.textContent = document.body.classList.contains('dark') ? "☀️ Light Mode" : "🌙 Dark Mode";
+  });
+</script>
+
 </body>
 </html>
