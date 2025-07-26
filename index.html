@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ayush Suryawanshi | Portfolio</title>
+  <style>
+    :root {
+      --primary: #6366f1;
+      --bg: #f3f4f6;
+      --card-bg: #ffffff;
+      --text: #1f2937;
+    }
+    html {
+      scroll-behavior: smooth;
+    }
+    body {
+      font-family: 'Segoe UI', Tahoma, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: var(--bg);
+      color: var(--text);
+    }
+    header {
+      text-align: center;
+      padding: 3rem 1rem 5rem;
+      background: linear-gradient(135deg, #6366f1, #8b5cf6);
+      color: white;
+      position: relative;
+    }
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      background: rgba(99,102,241,0.9);
+      padding: 0.5rem 1rem;
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      z-index: 10;
+      backdrop-filter: blur(8px);
+    }
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.2s ease;
+    }
+    nav a:hover {
+      color: #ffddf4;
+    }
+    header img {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      border: 4px solid white;
+      object-fit: cover;
+      position: absolute;
+      top: 80px;
+      left: 50%;
+      transform: translateX(-50%);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+    header h1 {
+      margin-top: 160px;
+      margin-bottom: 0.5rem;
+      font-size: 2.5rem;
+      animation: fadeIn 1.5s ease;
+    }
+    header p {
+      font-size: 1.2rem;
+      opacity: 0.95;
+      animation: fadeIn 2s ease;
+    }
+    section {
+      max-width: 900px;
+      margin: 3rem auto;
+      padding: 0 1rem;
+    }
+    h2 {
+      color: var(--primary);
+      border-left: 5px solid var(--primary);
+      padding-left: 0.5rem;
+      margin-bottom: 1rem;
+    }
+    .card {
+      background: var(--card-bg);
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    .card.show {
+      opacity: 1;
+      transform: translateY(0);
+      transition: all 0.6s ease;
+    }
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+    }
+    ul { padding-left: 20px; line-height: 1.8; }
+    a { color: var(--primary); text-decoration: none; font-weight: 500; }
+    footer {
+      text-align: center;
+      padding: 2rem 1rem;
+      background-color: #e5e7eb;
+      font-size: 0.95rem;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="#about">About</a>
+    <a href="#skills">Skills</a>
+    <a href="#projects">Projects</a>
+    <a href="#experience">Experience</a>
+    <a href="#contact">Contact</a>
+  </nav>
+
+  <header>
+    <img src="https://via.placeholder.com/120" alt="Ayush">
+    <h1>Ayush Suryawanshi</h1>
+    <p>Student | Aspiring Developer | Data Analyst Intern</p>
+  </header>
+
+  <section id="about">
+    <h2>About Me</h2>
+    <div class="card">
+      <p>
+        Passionate about coding and learning new tech! Currently pursuing B.Tech in Information Technology. 
+        I'm looking for opportunities to build cool stuff, level up my skills, and be part of real dev teams.
+      </p>
+    </div>
+  </section>
+
+  <section id="skills">
+    <h2>Skills</h2>
+    <div class="card">
+      <ul>
+        <li>C, C++, HTML, CSS, JavaScript, Bootstrap</li>
+        <li>Frontend Development</li>
+        <li>Python (Pandas, NumPy, Matplotlib)</li>
+        <li>Problem Solving, Teamwork, Communication</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="projects">
+    <h2>Projects</h2>
+
+    <div class="card">
+      <h3>ATM Simulation System</h3>
+      <p>Console-based banking simulation with features like balance inquiry, withdrawal, deposit, and PIN authentication using OOP concepts.</p>
+    </div>
+
+    <div class="card">
+      <h3>Spotify Clone (Frontend)</h3>
+      <p>HTML + CSS project recreating the Spotify UI with responsive design, playlists, and playback controls.</p>
+    </div>
+
+  </section>
+
+  <section id="experience">
+    <h2>Experience</h2>
+    <div class="card">
+      <p><strong>Data Analyst Intern – Sachitech Technology (June 2025 – Present)</strong></p>
+      <ul>
+        <li>Analyzed datasets using Python (Pandas, NumPy, Matplotlib)</li>
+        <li>Cleaned and transformed raw data for insights and visualizations</li>
+        <li>Created dashboards and automated scripts</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="contact">
+    <h2>Contact</h2>
+    <div class="card">
+      <p>Email: <a href="mailto:ayush.suryawanshi@example.com">ayush.suryawanshi@example.com</a></p>
+      <p>GitHub: <a href="https://github.com/SuryawanshiAyush" target="_blank">SuryawanshiAyush</a></p>
+      <p>LinkedIn: <a href="https://linkedin.com/Ayush-Suryawanshi" target="_blank">Ayush-Suryawanshi</a></p>
+      <p>Phone: +91 7774036888</p>
+    </div>
+  </section>
+
+  <footer>
+    © 2025 Ayush Suryawanshi. All rights reserved.
+  </footer>
+
+  <script>
+    // Animate cards when scrolled into view
+    const cards = document.querySelectorAll('.card');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting) {
+          entry.target.classList.add('show');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    cards.forEach(card => observer.observe(card));
+  </script>
+</body>
+</html>
