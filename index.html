@@ -149,6 +149,67 @@
       background-color: #e5e7eb;
       font-size: 0.95rem;
     }
+
+    .contact-form {
+      margin-top: 1.5rem;
+      display: grid;
+      gap: 1rem;
+    }
+    .contact-form input,
+    .contact-form textarea {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 0.85rem 1rem;
+      border: 1px solid #d1d5db;
+      border-radius: 8px;
+      font: inherit;
+      background: #fff;
+      color: #1f2937;
+      outline: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+    .contact-form input:focus,
+    .contact-form textarea:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(99,102,241,0.15);
+    }
+    .contact-form textarea {
+      min-height: 140px;
+      resize: vertical;
+    }
+    .contact-form button {
+      width: fit-content;
+      padding: 0.8rem 1.4rem;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      background: var(--primary);
+      color: white;
+      font-weight: 600;
+      font-size: 1rem;
+      transition: transform 0.2s ease, opacity 0.2s ease;
+    }
+    .contact-form button:hover {
+      transform: translateY(-2px);
+      opacity: 0.9;
+    }
+    .contact-form button:disabled {
+      cursor: not-allowed;
+      opacity: 0.65;
+      transform: none;
+    }
+    .form-status {
+      margin: 0;
+      font-weight: 500;
+      min-height: 1.2em;
+    }
+    body.dark .contact-form input,
+    body.dark .contact-form textarea {
+      background: #111827;
+      color: #f9fafb;
+      border-color: #374151;
+    }
+
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(-10px); }
       to { opacity: 1; transform: translateY(0); }
@@ -279,10 +340,25 @@
   <section id="contact">
     <h2>Contact</h2>
     <div class="card">
-      <p>Email: <a href="mailto:suryawanshiayush074@gmail.com">ayushsuryawanshi.it@gmail.com</a></p>
+      <p>Email: <a href="mailto:ayushsuryawanshi.it@gmail.com">ayushsuryawanshi.it@gmail.com</a></p>
       <p>GitHub: <a href="https://github.com/SuryawanshiAyush" target="_blank">SuryawanshiAyush</a></p>
       <p>LinkedIn: <a href="https://www.linkedin.com/in/ayush-suryawanshi-939b34232/" target="_blank">Ayush Suryawanshi</a></p>
       <p>Phone: +91 7774036888</p>
+
+      <form id="contact-form" class="contact-form" action="https://api.web3forms.com/submit" method="POST">
+        <!-- Replace this placeholder with your Web3Forms access key -->
+        <input type="hidden" name="access_key" value="701bba91-a890-43db-8d87-4aaf6597463c">
+
+        <input type="hidden" name="subject" value="New Portfolio Contact Message">
+        <input type="hidden" name="from_name" value="Ayush Suryawanshi Portfolio">
+
+        <input type="text" name="name" placeholder="Your Name" autocomplete="name" required>
+        <input type="email" name="email" placeholder="Your Email" autocomplete="email" required>
+        <textarea name="message" placeholder="Your Message" required></textarea>
+
+        <button type="submit" id="contact-submit">Send Message</button>
+        <p id="form-status" class="form-status" role="status" aria-live="polite"></p>
+      </form>
     </div>
   </section>
 
@@ -328,6 +404,44 @@
     entries.forEach(entry => { if(entry.isIntersecting){ entry.target.classList.add('show'); } });
   }, { threshold: 0.15 });
   cards.forEach(card => observer.observe(card));
+
+
+  // Web3Forms Contact Form
+  const contactForm = document.getElementById("contact-form");
+  const contactSubmit = document.getElementById("contact-submit");
+  const formStatus = document.getElementById("form-status");
+
+  contactForm.addEventListener("submit", async (event) => {
+    event.preventDefault();
+
+    contactSubmit.disabled = true;
+    contactSubmit.textContent = "Sending...";
+    formStatus.textContent = "";
+
+    try {
+      const response = await fetch(contactForm.action, {
+        method: "POST",
+        body: new FormData(contactForm),
+        headers: {
+          "Accept": "application/json"
+        }
+      });
+
+      const result = await response.json();
+
+      if (response.ok && result.success) {
+        formStatus.textContent = "Message sent successfully! Thanks for reaching out.";
+        contactForm.reset();
+      } else {
+        formStatus.textContent = result.message || "Something went wrong. Please try again.";
+      }
+    } catch (error) {
+      formStatus.textContent = "Unable to send the message right now. Please try again.";
+    } finally {
+      contactSubmit.disabled = false;
+      contactSubmit.textContent = "Send Message";
+    }
+  });
 
   // Dark Mode Toggle
   const themeToggle = document.getElementById('theme-toggle');
